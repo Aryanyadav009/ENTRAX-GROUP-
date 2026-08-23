@@ -1006,7 +1006,19 @@
 
             generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
             alert("Verification OTP Code for " + email + " is: " + generatedOTP);
-
+             emailjs.send("service_pu0x67g", "template_vak1ngs", {
+  to_name: name,
+  user_email: email,
+  otp: generatedOTP
+})
+.then(function(response) {
+   console.log("SUCCESS!", response.status, response.text);
+}, function(error) {
+   console.log("FAILED...", error);
+});
+            
+              
+            
             document.getElementById('regStep1').classList.add('hidden');
             document.getElementById('regStep2').classList.remove('hidden');
         }
