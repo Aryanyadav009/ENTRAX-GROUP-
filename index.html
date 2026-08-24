@@ -1,1 +1,1310 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENTRAX GROUP | Institutional Enterprise, SaaS & Agri-Export Platform</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons & Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- Tailwind CSS & Vanilla Tilt -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['"Instrument Serif"', 'serif'],
+                        body: ['Barlow', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        brandOrange: '#ef4d23',
+                        darkCta: '#0b0f1a'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <style>
+        body {
+            background-color: #05070d;
+            font-family: 'Barlow', sans-serif;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .liquid-glass-dark {
+            background: rgba(11, 15, 26, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            border-color: #ef4d23;
+            box-shadow: 0 0 20px rgba(239, 77, 35, 0.4);
+        }
+
+        .glowing-text {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7), 0 0 30px rgba(239, 77, 35, 0.5);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #05070d; }
+        ::-webkit-scrollbar-thumb { background: #ef4d23; border-radius: 3px; }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: 200%;
+            animation: marquee 25s linear infinite;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #digital-agreement, #digital-agreement * {
+                visibility: visible;
+            }
+            #digital-agreement {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: #ffffff !important;
+                color: #000000 !important;
+                border: 2px solid #000 !important;
+                box-shadow: none !important;
+            }
+            #digital-agreement .text-white, #digital-agreement .text-neutral-300, #digital-agreement .text-neutral-400 {
+                color: #000000 !important;
+            }
+            #digital-agreement button {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+
+    <!-- GLOBAL TIMEZONES CLOCK HEADER BAR -->
+    <div class="bg-[#0b0f1a] text-neutral-300 text-[11px] py-2 px-4 border-b border-white/10 flex flex-wrap justify-between items-center z-50 relative font-mono">
+        <div class="flex items-center gap-4 mx-auto sm:mx-0">
+            <span><i class="fa-solid fa-clock text-[#ef4d23] mr-1"></i> New Delhi (IST): <strong class="text-white" id="timeIST">--:--</strong></span>
+            <span><i class="fa-solid fa-clock text-blue-400 mr-1"></i> New York (EST): <strong class="text-white" id="timeEST">--:--</strong></span>
+            <span><i class="fa-solid fa-clock text-emerald-400 mr-1"></i> London (GMT): <strong class="text-white" id="timeGMT">--:--</strong></span>
+        </div>
+        <div class="hidden sm:block text-[#ef4d23] font-bold">
+            ENTRAX GLOBAL INSTITUTIONAL TERMINAL 2026
+        </div>
+    </div>
+
+    <!-- LIVE MARKET TICKER MARQUEE -->
+    <div class="bg-[#080c16] text-xs font-mono border-b border-white/10 overflow-hidden py-2 text-neutral-300">
+        <div class="animate-marquee whitespace-nowrap flex items-center gap-8">
+            <span><strong class="text-white">EUR/USD:</strong> 1.0894 <span class="text-emerald-400">▲ +0.18%</span></span>
+            <span><strong class="text-white">GBP/USD:</strong> 1.2742 <span class="text-emerald-400">▲ +0.24%</span></span>
+            <span><strong class="text-white">USD/INR:</strong> 83.45 <span class="text-red-400">▼ -0.05%</span></span>
+            <span><strong class="text-white">AGRI-BASMATI RICE:</strong> $1,150/MT <span class="text-emerald-400">▲ +1.20%</span></span>
+            <span><strong class="text-white">SPICES SP-INDEX:</strong> $3,420/MT <span class="text-emerald-400">▲ +0.85%</span></span>
+            <span><strong class="text-white">BTC/USD:</strong> $68,450.00 <span class="text-emerald-400">▲ +3.42%</span></span>
+        </div>
+    </div>
+
+    <!-- ================= 1. GATEWAY LOGIN / REGISTER / RESET AUTH SYSTEM ================= -->
+    <div id="authOverlay" class="fixed inset-0 z-50 bg-[#05070d]/95 backdrop-blur-2xl flex items-center justify-center p-4">
+        <div class="relative w-full max-w-md liquid-glass-dark p-8 rounded-3xl border border-white/20 shadow-2xl animate__animated animate__zoomIn text-white">
+            
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 bg-[#ef4d23] text-white rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg shadow-orange-500/40">
+                    <i class="fa-solid fa-shield-halved text-2xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold font-inter tracking-tight glowing-text" id="txtAuthTitle">ENTRAX PORTAL</h1>
+                <p class="text-xs text-neutral-400 mt-1" id="txtAuthSubtitle">Enter credentials to unlock account</p>
+            </div>
+
+            <!-- TAB SWITCHER -->
+            <div class="flex border-b border-white/10 mb-5">
+                <button id="tabLoginBtn" onclick="switchAuthMode('login')" class="flex-1 py-2 text-xs font-bold border-b-2 border-[#ef4d23] text-white">Sign In</button>
+                <button id="tabRegisterBtn" onclick="switchAuthMode('register')" class="flex-1 py-2 text-xs font-bold border-b-2 border-transparent text-neutral-400 hover:text-white">Register / Sign Up</button>
+            </div>
+
+            <!-- FORM: SIGN IN -->
+            <div id="loginFormBlock" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-neutral-300 mb-1">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="entraxgroup@gmail.com" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-neutral-300 mb-1">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                </div>
+                <div class="text-right">
+                    <button onclick="switchAuthMode('forgot')" class="text-[11px] text-[#ef4d23] hover:underline">Forgot Password?</button>
+                </div>
+                <button onclick="handleDirectLogin()" class="w-full bg-[#ef4d23] hover:bg-[#d43c15] text-white py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-orange-500/30">
+                    Sign In Now
+                </button>
+            </div>
+
+            <!-- FORM: REGISTER -->
+            <div id="registerFormBlock" class="hidden space-y-4">
+                <div id="regStep1" class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">Full Name</label>
+                        <input type="text" id="regName" placeholder="Aryan Yadav" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">Email Address</label>
+                        <input type="email" id="regEmail" placeholder="entraxgroup@gmail.com" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">Create Password</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                    </div>
+                    <button onclick="sendRegisterOTP()" class="w-full bg-[#ef4d23] hover:bg-[#d43c15] text-white py-3 rounded-xl font-bold text-sm transition-all shadow-lg">
+                        Send 6-Digit OTP Code
+                    </button>
+                </div>
+
+                <div id="regStep2" class="hidden space-y-4">
+                    <p class="text-xs text-center text-emerald-400">Verification OTP generated!</p>
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">Enter OTP Code</label>
+                        <input type="text" id="regOtp" maxlength="6" placeholder="******" class="w-full glass-input rounded-xl px-4 py-3 text-center text-xl tracking-widest font-bold">
+                    </div>
+                    <button onclick="verifyAndRegister()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm transition-all shadow-lg">
+                        Verify & Create Account
+                    </button>
+                </div>
+            </div>
+
+            <!-- FORM: FORGOT PASSWORD -->
+            <div id="forgotFormBlock" class="hidden space-y-4">
+                <div id="forgotStep1" class="space-y-3">
+                    <p class="text-xs text-neutral-400">Enter registered email to receive reset code.</p>
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">Registered Email Address</label>
+                        <input type="email" id="resetEmail" placeholder="entraxgroup@gmail.com" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                    </div>
+                    <button onclick="sendResetOTP()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-bold text-sm">
+                        Send Reset OTP
+                    </button>
+                </div>
+
+                <div id="forgotStep2" class="hidden space-y-3">
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">Enter Reset OTP</label>
+                        <input type="text" id="resetOtp" maxlength="6" placeholder="******" class="w-full glass-input rounded-xl px-4 py-2.5 text-center text-lg font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">New Password</label>
+                        <input type="password" id="newPassword" placeholder="••••••••" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+                    </div>
+                    <button onclick="confirmResetPassword()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm">
+                        Update Password & Login
+                    </button>
+                </div>
+                <div class="text-center pt-2">
+                    <button onclick="switchAuthMode('login')" class="text-xs text-neutral-400 hover:text-white">← Back to Sign In</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ================= 2. MAIN WEBSITE CONTENT ================= -->
+    <div id="mainWebsite" class="hidden">
+
+        <!-- FLOATING PILL NAVBAR WITH 3-LINE HAMBURGER MENU -->
+        <header class="fixed top-12 inset-x-0 z-40 px-4 flex justify-center">
+            <nav class="liquid-glass-dark rounded-2xl md:rounded-full px-5 py-3 w-full max-w-5xl flex items-center justify-between border border-white/20 shadow-2xl relative">
+                
+                <a href="#" class="flex items-center gap-2">
+                    <svg class="w-7 h-7 text-[#ef4d23]" viewBox="0 0 32 32" fill="currentColor">
+                        <circle cx="16" cy="6" r="3.5" /><circle cx="23" cy="9" r="3.5" />
+                        <circle cx="26" cy="16" r="3.5" /><circle cx="23" cy="23" r="3.5" />
+                        <circle cx="16" cy="26" r="3.5" /><circle cx="9" cy="23" r="3.5" />
+                        <circle cx="6" cy="16" r="3.5" /><circle cx="9" cy="9" r="3.5" />
+                        <circle cx="16" cy="16" r="3.5" />
+                    </svg>
+                    <span class="font-bold text-lg tracking-wider text-white font-inter">ENTRAX <span class="text-[#ef4d23]">GROUP</span></span>
+                </a>
+
+                <!-- DESKTOP NAV -->
+                <div class="hidden lg:flex items-center gap-6 text-xs font-medium uppercase tracking-wider text-neutral-300 font-inter">
+                    <a href="#services" class="hover:text-[#ef4d23] transition-colors">Services</a>
+                    <a href="#agri-export" class="hover:text-[#ef4d23] transition-colors text-emerald-400 font-bold">Agri Import-Export</a>
+                    <a href="#schemes" class="hover:text-[#ef4d23] transition-colors">Govt Schemes</a>
+                    <a href="#academy" class="hover:text-[#ef4d23] transition-colors">Paid Courses</a>
+                    <a href="#prop-funding" class="hover:text-[#ef4d23] transition-colors">Prop Funding</a>
+                    <a href="#digital-agreement" class="hover:text-[#ef4d23] transition-colors">Legal Agreement</a>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <a href="#applyFormSection" class="hidden sm:inline-block bg-[#ef4d23] hover:bg-[#d43c15] text-white text-xs font-bold px-4 py-2 rounded-full transition-all shadow-md">
+                        Get Started
+                    </a>
+                    
+                    <!-- 3-LINE HAMBURGER TOGGLE BUTTON -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden text-white text-xl p-2 rounded-lg bg-white/10 hover:bg-white/20">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <button onclick="logoutGateway()" title="Sign Out" class="text-neutral-400 hover:text-red-400 text-sm px-2">
+                        <i class="fa-solid fa-power-off"></i>
+                    </button>
+                </div>
+
+                <!-- COLLAPSIBLE MOBILE MENU -->
+                <div id="mobileMenu" class="hidden absolute top-16 left-0 right-0 bg-[#0b0f1a]/95 border border-white/20 rounded-2xl p-5 flex-col gap-4 text-xs font-medium uppercase text-neutral-200 lg:hidden shadow-2xl backdrop-blur-xl">
+                    <div class="pb-2 border-b border-white/10 text-[#ef4d23] font-bold text-xs tracking-widest">// NAVIGATION & SECTIONS</div>
+                    <a href="#services" onclick="toggleMobileMenu()" class="hover:text-[#ef4d23] py-1.5"><i class="fa-solid fa-cube mr-2"></i> Enterprise Services</a>
+                    <a href="#agri-export" onclick="toggleMobileMenu()" class="hover:text-[#ef4d23] py-1.5 text-emerald-400 font-bold"><i class="fa-solid fa-wheat-awn mr-2"></i> Agriculture Import-Export</a>
+                    <a href="#schemes" onclick="toggleMobileMenu()" class="hover:text-[#ef4d23] py-1.5"><i class="fa-solid fa-landmark mr-2"></i> Govt Schemes</a>
+                    <a href="#academy" onclick="toggleMobileMenu()" class="hover:text-[#ef4d23] py-1.5"><i class="fa-solid fa-graduation-cap mr-2"></i> Paid Courses</a>
+                    <a href="#prop-funding" onclick="toggleMobileMenu()" class="hover:text-[#ef4d23] py-1.5"><i class="fa-solid fa-chart-line mr-2"></i> Prop Funding</a>
+                    <a href="#digital-agreement" onclick="toggleMobileMenu()" class="hover:text-[#ef4d23] py-1.5"><i class="fa-solid fa-file-contract mr-2"></i> Legal Agreement</a>
+                    
+                    <div class="pt-2 border-t border-white/10">
+                        <label class="text-[10px] text-neutral-400 block mb-1">SELECT PAGE / SECTION:</label>
+                        <select onchange="navigateToSection(this.value)" class="w-full bg-[#05070d] text-white border border-white/20 rounded-xl p-2.5 text-xs outline-none">
+                            <option value="">-- Jump To Page Section --</option>
+                            <option value="services">Services & Solutions</option>
+                            <option value="agri-export">Agri Import & Export Terminal</option>
+                            <option value="schemes">Government Schemes</option>
+                            <option value="academy">Paid Mentorship Academy</option>
+                            <option value="prop-funding">Prop-Trading Evaluation</option>
+                            <option value="applyFormSection">Application Form</option>
+                            <option value="digital-agreement">Digital Undertaking Agreement</option>
+                        </select>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="relative min-h-screen flex items-center justify-center pt-32 pb-16 px-4 overflow-hidden">
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-25">
+                <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260424_064411_9e9d7f84-9277-41f4-ab10-59172d89e6be.mp4" type="video/mp4">
+            </video>
+
+            <div class="relative z-10 text-center max-w-4xl mx-auto space-y-6">
+                <div class="inline-flex items-center gap-2 glass-card px-4 py-1.5 rounded-full text-xs text-neutral-300">
+                    <span class="w-2 h-2 rounded-full bg-[#ef4d23] animate-ping"></span>
+                    <span>Global SaaS, AI & Agricultural Import-Export Ecosystem</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold font-inter tracking-tight leading-tight glowing-text">
+                    Empowering <span class="font-heading italic font-normal text-[#ef4d23]">Ventures</span> <br>
+                    & Global Agricultural Trade
+                </h1>
+
+                <p class="text-neutral-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-light">
+                    Pioneering AI engineering, high-frequency quantitative trading, global agricultural commodity export, and empowering rural Panchayat digital literacy worldwide.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 pt-4">
+                    <a href="#agri-export" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-full font-bold text-sm transition-all shadow-lg shadow-emerald-500/30">
+                        Explore Agri Import-Export
+                    </a>
+                    <a href="#services" class="bg-[#ef4d23] hover:bg-[#d43c15] text-white px-8 py-3.5 rounded-full font-bold text-sm transition-all shadow-lg shadow-orange-500/30">
+                        Submit Service Proposal
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD PREVIEW -->
+        <section class="py-16 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-[#ef4d23] text-xs font-bold uppercase tracking-widest">// System Intelligence Analytics</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-inter text-white mt-1">Live Enterprise Dashboard</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6" data-tilt data-tilt-max="10">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-bold text-emerald-400 uppercase"><i class="fa-solid fa-wheat-awn mr-2"></i>Agri Export Volume</span>
+                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] px-2 py-0.5 rounded-full font-bold">APEDA Compliant</span>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-2">250,000+ MT</div>
+                    <p class="text-neutral-400 text-xs mb-4">Grains & Spices Shipped Globally</p>
+                    <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                        <div class="bg-emerald-500 h-full w-[92%] animate-pulse"></div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6" data-tilt data-tilt-max="10">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-bold text-purple-400 uppercase"><i class="fa-solid fa-brain mr-2"></i>AI Neural Engine</span>
+                        <span class="bg-purple-500/20 text-purple-400 text-[10px] px-2 py-0.5 rounded-full font-bold">LLM Pipeline</span>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-2">12M+</div>
+                    <p class="text-neutral-400 text-xs mb-4">Inferences Processed / Second</p>
+                    <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                        <div class="bg-purple-500 h-full w-[94%] animate-pulse"></div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6" data-tilt data-tilt-max="10">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-bold text-[#ef4d23] uppercase"><i class="fa-solid fa-chart-line mr-2"></i>Quant Trading</span>
+                        <span class="bg-orange-500/20 text-[#ef4d23] text-[10px] px-2 py-0.5 rounded-full font-bold">HFT Active</span>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-2">$4.8B+</div>
+                    <p class="text-neutral-400 text-xs mb-4">Capital Managed & Hedged</p>
+                    <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                        <div class="bg-[#ef4d23] h-full w-[88%] animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- AGRICULTURAL IMPORT & EXPORT TERMINAL -->
+        <section id="agri-export" class="py-20 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest">// Official Global Trade Terminal</span>
+                <h2 class="text-3xl sm:text-5xl font-bold font-inter text-white mt-2">Agricultural Import & Export Division</h2>
+                <p class="text-neutral-400 text-xs max-w-2xl mx-auto mt-2">
+                    Direct premium supplier & global distributor of Grade-A Indian Basmati Rice, Spices, Grains, and Pulses. Certified by APEDA, FSSAI & Phytosanitary standards.
+                </p>
+            </div>
+
+            <!-- AGRI PRODUCT CATALOGUE GRID -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                
+                <!-- PRODUCT 1 -->
+                <div class="glass-card p-6 hover:border-emerald-500/50 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-bowl-rice text-2xl"></i>
+                        </div>
+                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Premium Grain</span>
+                        <h3 class="text-xl font-bold font-inter text-white mt-2 mb-1">1121 XXL Basmati Rice</h3>
+                        <p class="text-neutral-400 text-xs mb-4">Long grain, aromatic steam & parboiled basmati rice. Extra elongation upon cooking.</p>
+                        
+                        <div class="bg-white/5 p-3 rounded-xl space-y-1 text-[11px] font-mono text-neutral-300">
+                            <p><strong>Purity:</strong> 95% Min</p>
+                            <p><strong>Moisture:</strong> 12.5% Max</p>
+                            <p><strong>Grain Length:</strong> 8.35 mm Average</p>
+                            <p><strong>Packing:</strong> 10kg / 25kg / 50kg PP Bags</p>
+                        </div>
+                    </div>
+                    <button onclick="openAgriInquiry('1121 XXL Basmati Rice')" class="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 rounded-xl w-full text-center">
+                        Send Import/Export Inquiry →
+                    </button>
+                </div>
+
+                <!-- PRODUCT 2 -->
+                <div class="glass-card p-6 hover:border-emerald-500/50 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-pepper-hot text-2xl"></i>
+                        </div>
+                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Spices & Seasoning</span>
+                        <h3 class="text-xl font-bold font-inter text-white mt-2 mb-1">Turmeric & Red Chilli</h3>
+                        <p class="text-neutral-400 text-xs mb-4">High-Curcumin Alleppey Turmeric finger & Stemless S17 Teja Red Chilli whole/powder.</p>
+                        
+                        <div class="bg-white/5 p-3 rounded-xl space-y-1 text-[11px] font-mono text-neutral-300">
+                            <p><strong>Curcumin Content:</strong> 3% - 5% Min</p>
+                            <p><strong>Admixture:</strong> 1% Max</p>
+                            <p><strong>Quality Grade:</strong> Export Standard</p>
+                            <p><strong>Packing:</strong> Vacuum Sealed Jute Bags</p>
+                        </div>
+                    </div>
+                    <button onclick="openAgriInquiry('Turmeric & Spices')" class="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 rounded-xl w-full text-center">
+                        Send Import/Export Inquiry →
+                    </button>
+                </div>
+
+                <!-- PRODUCT 3 -->
+                <div class="glass-card p-6 hover:border-emerald-500/50 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-yellow-500/20 text-yellow-400 rounded-2xl flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-seedling text-2xl"></i>
+                        </div>
+                        <span class="bg-yellow-500/20 text-yellow-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Pulses & Grains</span>
+                        <h3 class="text-xl font-bold font-inter text-white mt-2 mb-1">Chickpeas & Wheat</h3>
+                        <p class="text-neutral-400 text-xs mb-4">Kabuli Chickpeas (42-44, 44-46 count) & Sharbati High-Protein Milling Wheat.</p>
+                        
+                        <div class="bg-white/5 p-3 rounded-xl space-y-1 text-[11px] font-mono text-neutral-300">
+                            <p><strong>Protein:</strong> 12% - 14% Min</p>
+                            <p><strong>Foreign Matter:</strong> 0.5% Max</p>
+                            <p><strong>Crop Year:</strong> Current Season</p>
+                            <p><strong>Packing:</strong> Bulk Container Load / Bags</p>
+                        </div>
+                    </div>
+                    <button onclick="openAgriInquiry('Chickpeas & Wheat')" class="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 rounded-xl w-full text-center">
+                        Send Import/Export Inquiry →
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- BULK TRADE RFQ FORM -->
+            <div class="glass-card p-8 border border-emerald-500/30">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold font-inter text-white">Request Global Trade Quotation (RFQ)</h3>
+                    <p class="text-xs text-neutral-400 mt-1">Directly email your target quantity, destination port (FOB/CIF), and specifications to our trading division.</p>
+                </div>
+
+                <form id="agriTradeForm" onsubmit="submitAgriInquiry(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-neutral-300 mb-1">Company / Buyer Name</label>
+                            <input type="text" id="agriBuyerName" required placeholder="Global Traders LLC" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-neutral-300 mb-1">Official Email Address</label>
+                            <input type="email" id="agriBuyerEmail" required placeholder="trade@company.com" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-neutral-300 mb-1">Commodity / Commodity Variety</label>
+                            <input type="text" id="agriItem" required placeholder="1121 Basmati Rice / Spices" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-neutral-300 mb-1">Required Quantity (Metric Tons)</label>
+                            <input type="text" id="agriQuantity" required placeholder="e.g. 50 MT or 100 MT" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">Destination Port & Import/Export Requirements</label>
+                        <textarea id="agriSpecs" rows="3" required placeholder="Specify Destination Port (e.g., Jebel Ali, Port Said), FOB/CIF preference, and packaging details..." class="w-full glass-input rounded-xl px-4 py-3 text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-lg shadow-emerald-600/30">
+                        <i class="fa-solid fa-envelope mr-2"></i> Submit Inquiry Direct To entraxgroup@gmail.com
+                    </button>
+                    <div id="agriStatus" class="hidden text-center text-xs p-3 rounded-xl font-semibold"></div>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- FREE SERVICES SECTION -->
+        <section id="services" class="py-20 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-[#ef4d23] text-xs font-bold uppercase tracking-widest">// Enterprise Services</span>
+                <h2 class="text-3xl sm:text-5xl font-bold font-inter text-white mt-2">Services & Project Solutions</h2>
+                <p class="text-neutral-400 text-xs mt-2">Submit your requirements freely via message/email. Personal consultation provided.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-card p-6 hover:border-orange-500/50 transition-all flex flex-col justify-between">
+                    <div>
+                        <i class="fa-solid fa-code text-3xl text-[#ef4d23] mb-4"></i>
+                        <h3 class="text-xl font-bold font-inter mb-2">Web & Mobile Architecture</h3>
+                        <p class="text-neutral-400 text-xs">High-converting React, Next.js, and Flutter apps built for scale.</p>
+                    </div>
+                    <a href="#applyFormSection" onclick="setFormService('Web & Mobile Development')" class="mt-6 inline-block text-center bg-white/10 hover:bg-[#ef4d23] text-white font-bold text-xs py-2.5 rounded-xl transition-all">
+                        Request Quote / Message Us →
+                    </a>
+                </div>
+
+                <div class="glass-card p-6 hover:border-purple-500/50 transition-all flex flex-col justify-between">
+                    <div>
+                        <i class="fa-solid fa-robot text-3xl text-purple-400 mb-4"></i>
+                        <h3 class="text-xl font-bold font-inter mb-2">AI Agents & Neural Systems</h3>
+                        <p class="text-neutral-400 text-xs">Autonomous agents, machine learning, and LLM automation pipelines.</p>
+                    </div>
+                    <a href="#applyFormSection" onclick="setFormService('AI Tech Solutions')" class="mt-6 inline-block text-center bg-white/10 hover:bg-[#ef4d23] text-white font-bold text-xs py-2.5 rounded-xl transition-all">
+                        Request Quote / Message Us →
+                    </a>
+                </div>
+
+                <div class="glass-card p-6 hover:border-pink-500/50 transition-all flex flex-col justify-between">
+                    <div>
+                        <i class="fa-solid fa-photo-film text-3xl text-pink-400 mb-4"></i>
+                        <h3 class="text-xl font-bold font-inter mb-2">Video Editing & Digital Marketing</h3>
+                        <p class="text-neutral-400 text-xs">3D graphic design, video ads, and brand marketing campaigns.</p>
+                    </div>
+                    <a href="#applyFormSection" onclick="setFormService('Video Editing & Marketing')" class="mt-6 inline-block text-center bg-white/10 hover:bg-[#ef4d23] text-white font-bold text-xs py-2.5 rounded-xl transition-all">
+                        Request Quote / Message Us →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- GOVERNMENT SCHEMES SECTION -->
+        <section id="schemes" class="py-16 px-4 max-w-6xl mx-auto">
+            <div class="glass-card p-8 border border-purple-500/30">
+                <div class="text-center mb-8">
+                    <span class="text-purple-400 text-xs font-bold uppercase tracking-widest">// Official Portals & Initiatives</span>
+                    <h2 class="text-3xl font-bold font-inter text-white mt-1">Government Schemes & Micro-Grant Links</h2>
+                    <p class="text-xs text-neutral-400 mt-1">Direct access to official government initiatives, Panchayat digital literacy portals & startup grants.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white/5 p-5 rounded-2xl border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">PM MUDRA Yojana Portal</h4>
+                            <p class="text-[11px] text-neutral-400 mt-2">Micro-loans and funding opportunities for startups and small enterprises.</p>
+                        </div>
+                        <a href="https://www.mudra.org.in/" target="_blank" class="mt-4 inline-block text-purple-400 text-xs font-bold hover:underline">Official Portal Link <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></a>
+                    </div>
+
+                    <div class="bg-white/5 p-5 rounded-2xl border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Startup India Initiative</h4>
+                            <p class="text-[11px] text-neutral-400 mt-2">Government grants, tax exemptions, and incubation support for founders.</p>
+                        </div>
+                        <a href="https://www.startupindia.gov.in/" target="_blank" class="mt-4 inline-block text-purple-400 text-xs font-bold hover:underline">Official Portal Link <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></a>
+                    </div>
+
+                    <div class="bg-white/5 p-5 rounded-2xl border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">PMGDISHA Panchayat Literacy</h4>
+                            <p class="text-[11px] text-neutral-400 mt-2">Pradhan Mantri Gramin Digital Saksharta Abhiyan for rural digital training.</p>
+                        </div>
+                        <a href="https://www.pmgdisha.in/" target="_blank" class="mt-4 inline-block text-purple-400 text-xs font-bold hover:underline">Official Portal Link <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAID COURSES SECTION -->
+        <section id="academy" class="py-16 px-4 max-w-5xl mx-auto space-y-6">
+            <div class="text-center mb-8">
+                <span class="text-[#ef4d23] text-xs font-bold uppercase tracking-widest">// Paid Learning Academy</span>
+                <h2 class="text-3xl font-bold font-inter text-white mt-1">Enroll Paid Mentorship & Courses</h2>
+                <p class="text-xs text-neutral-400 mt-1">Official Course Certificates & Invoice Receipts issued upon enrollment.</p>
+            </div>
+
+            <div class="glass-card p-8 border-l-4 border-l-[#ef4d23] flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <span class="text-[#ef4d23] text-xs font-bold uppercase">Mentorship Academy</span>
+                    <h3 class="text-2xl font-bold font-inter text-white mt-1">1-Month Trading & Business Mentorship</h3>
+                    <p class="text-xs text-neutral-400 mt-1">Learn technical analysis, risk management, and pass the evaluation demo test.</p>
+                </div>
+                <button onclick="openCheckoutModal('499', 'Stock Market Mentorship')" class="bg-[#ef4d23] hover:bg-[#d43c15] text-white text-xs font-bold px-6 py-3 rounded-xl shadow-lg">
+                    Buy Course (₹499/mo)
+                </button>
+            </div>
+        </section>
+
+        <!-- PROP TRADING SECTION -->
+        <section id="prop-funding" class="py-20 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-[#ef4d23] text-xs font-bold uppercase tracking-widest">// Capital Allocation Evaluation</span>
+                <h2 class="text-3xl sm:text-5xl font-bold font-inter text-white mt-2">Prop-Trading Funded Challenges</h2>
+                <p class="text-neutral-400 text-xs max-w-xl mx-auto mt-2">Pass 30-Day Risk Demo Test → Get ENTRAX Capital with 60/40 Profit Split.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 border-t-4 border-t-blue-500 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-500/20 text-blue-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Tier 1</span>
+                        <h3 class="text-2xl font-bold mt-3">$5,000 Account</h3>
+                        <ul class="text-xs text-neutral-300 mt-4 space-y-2 border-t border-white/10 pt-4 font-mono">
+                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i>Profit Target: 8% (Demo)</li>
+                            <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i>Max Daily Loss: 5%</li>
+                            <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i>Max Overall Loss: 10%</li>
+                        </ul>
+                    </div>
+                    <button onclick="openCheckoutModal('999', '$5,000 Prop Challenge')" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl w-full">
+                        Enroll Evaluation (₹999)
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 border-2 border-[#ef4d23] flex flex-col justify-between relative">
+                    <span class="absolute -top-3 right-6 bg-[#ef4d23] text-white text-[9px] font-bold px-3 py-0.5 rounded-full uppercase">Most Popular</span>
+                    <div>
+                        <span class="bg-orange-500/20 text-[#ef4d23] text-[10px] font-bold px-3 py-1 rounded-full uppercase">Tier 2</span>
+                        <h3 class="text-2xl font-bold mt-3">$10,000 Account</h3>
+                        <ul class="text-xs text-neutral-300 mt-4 space-y-2 border-t border-white/10 pt-4 font-mono">
+                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i>Profit Target: 8% (Demo)</li>
+                            <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i>Max Daily Loss: 5%</li>
+                            <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i>Max Overall Loss: 10%</li>
+                        </ul>
+                    </div>
+                    <button onclick="openCheckoutModal('1999', '$10,000 Prop Challenge')" class="mt-6 bg-[#ef4d23] hover:bg-[#d43c15] text-white font-bold text-xs py-3 rounded-xl w-full">
+                        Enroll Evaluation (₹1,999)
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 border-t-4 border-t-purple-500 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-purple-500/20 text-purple-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Tier 3 VIP</span>
+                        <h3 class="text-2xl font-bold mt-3">$25,000 Account</h3>
+                        <ul class="text-xs text-neutral-300 mt-4 space-y-2 border-t border-white/10 pt-4 font-mono">
+                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i>Profit Target: 10% (Demo)</li>
+                            <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i>Max Daily Loss: 5%</li>
+                            <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i>Max Overall Loss: 10%</li>
+                        </ul>
+                    </div>
+                    <button onclick="openCheckoutModal('3999', '$25,000 Prop Challenge')" class="mt-6 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs py-3 rounded-xl w-full">
+                        Enroll Evaluation (₹3,999)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- APPLICATION FORM -->
+        <section id="applyFormSection" class="py-20 px-4 max-w-4xl mx-auto">
+            <div class="glass-card p-8 sm:p-12 border border-white/10 shadow-2xl">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold font-inter">Apply For Free Services or Send Proposal</h2>
+                    <p class="text-neutral-400 text-xs mt-1">Direct message registered in ENTRAX Executive Database. No payment required for proposals.</p>
+                </div>
+
+                <form id="applicationForm" onsubmit="submitApplication(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-neutral-300 mb-1">Full Name</label>
+                            <input type="text" id="appUser" required placeholder="John Doe" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-neutral-300 mb-1">Email Address</label>
+                            <input type="email" id="appEmail" required placeholder="john@example.com" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">Select Service Category</label>
+                        <select id="appCategory" class="w-full glass-input rounded-xl px-4 py-3 text-sm bg-[#0b0f1a]">
+                            <option value="Web & Mobile Development">Web & Mobile Development</option>
+                            <option value="AI Tech Solutions">AI Tech Solutions</option>
+                            <option value="Video Editing & Marketing">Video Editing & Marketing</option>
+                            <option value="Stock Market & Forex Trading">Stock Market & Forex Trading</option>
+                            <option value="Agricultural Import & Export">Agricultural Import & Export</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-neutral-300 mb-1">Your Requirements / Proposal Message</label>
+                        <textarea id="appMessage" rows="4" required placeholder="Describe your project, requirement, or proposal..." class="w-full glass-input rounded-xl px-4 py-3 text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" id="btnSubmitApp" class="w-full bg-[#ef4d23] hover:bg-[#d43c15] text-white py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-orange-500/30">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Send Proposal Message
+                    </button>
+
+                    <div id="appStatus" class="hidden text-center text-xs p-3 rounded-xl font-semibold"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- DIGITAL AGREEMENT -->
+        <section id="digital-agreement" class="py-20 px-4 max-w-4xl mx-auto">
+            <div class="glass-card p-8 sm:p-12 border-2 border-red-500/40 relative shadow-2xl font-mono text-xs leading-relaxed space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-white/10 pb-4 gap-2">
+                    <div>
+                        <span class="text-red-400 font-bold uppercase text-[10px]">// STRICT LEGAL UNDERTAKING BOND</span>
+                        <h3 class="text-2xl font-bold font-inter text-white mt-1">ENTRAX GROUP Rules & Policy Agreement</h3>
+                    </div>
+                    <span class="bg-red-500/20 text-red-300 text-[10px] px-3 py-1 rounded-full font-bold">Zero Tolerance Policy</span>
+                </div>
+
+                <div class="bg-red-950/60 border border-red-500/40 p-4 rounded-xl text-red-200 space-y-2">
+                    <h4 class="font-bold text-red-400 uppercase text-xs">⚠️ STRICT RULE BREACH & NON-REFUNDABLE CLAUSE:</h4>
+                    <p class="text-[11px]">
+                        Any breach of risk parameters (5% Max Daily Loss or 10% Max Drawdown limit) results in INSTANT TERMINATION of services. Fees paid are strictly NON-REFUNDABLE upon rule violation.
+                    </p>
+                </div>
+
+                <div class="space-y-2 text-neutral-300 text-[11px]">
+                    <p><strong>Official Undertaking Terms by Founder (Aryan Yadav):</strong></p>
+                    <ol class="list-decimal pl-4 space-y-1 text-neutral-400">
+                        <li>Candidates must successfully clear the 30-Day Demo Evaluation Test to receive Funded Accounts.</li>
+                        <li>Prop Account Profit Split is strictly 60% Candidate / 40% ENTRAX GROUP.</li>
+                        <li>ENTRAX GROUP is an education, software, and international trade platform.</li>
+                    </ol>
+                </div>
+
+                <div class="bg-[#0b0f1a] p-4 rounded-2xl border border-white/20 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <label class="block text-xs font-bold text-white"><i class="fa-solid fa-pen-nib text-[#ef4d23] mr-2"></i> Draw Your Digital Signature Below:</label>
+                        <button onclick="clearSignatureCanvas()" class="text-[10px] bg-red-500/20 text-red-400 px-2 py-1 rounded hover:bg-red-500/30">Clear Pad</button>
+                    </div>
+                    <canvas id="sigCanvas" class="w-full h-36 bg-white/5 border border-white/20 rounded-xl cursor-crosshair touch-none"></canvas>
+                </div>
+
+                <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <p class="text-white font-bold text-sm">Aryan Yadav</p>
+                        <p class="text-[10px] text-neutral-400">Founder & CEO, ENTRAX GROUP Inc.</p>
+                        <p class="text-[10px] text-neutral-500">NH 30, Sitapur, Uttar Pradesh - 261302, India</p>
+                    </div>
+                    <button onclick="window.print()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-download"></i> Save / Print Agreement PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-12 px-4 border-t border-white/10 text-center text-xs text-neutral-500">
+            <p class="font-bold text-white text-sm mb-1">ENTRAX GROUP Corporate Headquarters</p>
+            <p>NH 30, Sitapur, Uttar Pradesh - 261302, India | entraxgroup@gmail.com</p>
+            <p class="mt-4 text-neutral-600">&copy; 2026 ENTRAX GROUP Inc. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-[#0b0f1a] text-white p-8 rounded-3xl max-w-md w-full relative border border-white/20 shadow-2xl animate__animated animate__zoomIn text-center">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div id="paymentScanScreen">
+                <div class="w-12 h-12 bg-[#ef4d23] text-white rounded-2xl flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-receipt text-xl"></i>
+                </div>
+                
+                <h3 class="text-xl font-bold font-inter">ENTRAX Checkout Portal</h3>
+                <p id="checkoutPurpose" class="text-xs text-neutral-400 mt-1">Selected Service</p>
+
+                <div class="my-6 bg-white/5 p-4 rounded-2xl border border-white/10">
+                    <span class="text-xs text-neutral-400 block">Total Fee</span>
+                    <span id="checkoutAmount" class="text-3xl font-bold text-white">₹0</span>
+                </div>
+
+                <div class="bg-white p-3 rounded-2xl inline-block mb-4 shadow-xl">
+                    <img id="checkoutQR" src="" alt="Payment QR" class="w-40 h-40 mx-auto">
+                </div>
+
+                <p class="text-[11px] text-neutral-400 mb-4 font-mono">Scan via PhonePe, Google Pay, PayTM, or FamPay</p>
+
+                <button onclick="generateOfficialReceipt()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs shadow-lg">
+                    I Have Completed Payment
+                </button>
+            </div>
+
+            <!-- PAYMENT INSTRUCTIONS -->
+            <div id="paymentReceiptScreen" class="hidden text-center space-y-4">
+                <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                    <i class="fa-solid fa-circle-check text-2xl"></i>
+                </div>
+                
+                <h3 class="text-lg font-bold font-inter text-white">Payment Verification Step</h3>
+                
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/10 text-xs text-neutral-300 space-y-3">
+                    <p class="font-semibold text-emerald-400">Important Instruction:</p>
+                    <p>Aapne jo payment ki hai, kripya uski <strong>Payment History Ka Screenshot</strong> hamari official email par bhej dein:</p>
+                    <div class="bg-[#05070d] p-2.5 rounded-xl border border-white/20 font-mono text-white text-xs select-all">
+                        entraxgroup@gmail.com
+                    </div>
+                    <p class="text-[11px] text-neutral-400">Email bhejte waqt apna Registered Name aur Email ID zaroor mention karein.</p>
+                </div>
+
+                <button onclick="closeCheckoutModal()" class="w-full bg-[#ef4d23] hover:bg-[#d43c15] text-white font-bold py-2.5 rounded-xl text-xs">
+                    Close / Got It
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= 4. ADVANCED OPEN-SOURCE AI CHATBOT ================= -->
+    <button onclick="toggleBotWindow()" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-tr from-[#ef4d23] to-purple-600 rounded-full flex items-center justify-center text-white text-2xl shadow-2xl hover:scale-110 transition-transform">
+        <i class="fa-solid fa-robot"></i>
+    </button>
+
+    <div id="chatBotWindow" class="fixed bottom-24 right-4 sm:right-6 z-50 w-[95%] sm:w-[480px] h-[550px] bg-[#0b0f1a] text-white rounded-3xl hidden shadow-2xl border border-white/20 overflow-hidden">
+        
+        <!-- SIDEBAR FOR CHAT HISTORY -->
+        <div id="chatSidebar" class="w-48 bg-[#05070d] border-r border-white/10 p-3 hidden flex-col justify-between text-xs">
+            <div>
+                <button onclick="startNewChatSession()" class="w-full bg-[#ef4d23] text-white rounded-xl p-2 font-bold flex items-center justify-center gap-2 mb-3 hover:bg-[#d43c15]">
+                    <i class="fa-solid fa-plus"></i> New Chat
+                </button>
+                <div class="text-[10px] text-neutral-400 uppercase font-bold mb-2">Saved History</div>
+                <div id="historyList" class="space-y-1.5 overflow-y-auto max-h-[380px]"></div>
+            </div>
+            <button onclick="clearAllChatHistory()" class="text-[10px] text-red-400 hover:underline">Clear History</button>
+        </div>
+
+        <!-- MAIN CHAT CONTAINER -->
+        <div class="flex-1 flex flex-col h-full bg-[#0b0f1a]">
+            <div class="bg-gradient-to-r from-[#ef4d23] to-purple-700 p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <button onclick="toggleHistorySidebar()" class="text-white text-sm p-1.5 bg-white/10 rounded-lg hover:bg-white/20" title="History Sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div>
+                        <h4 class="font-bold text-xs sm:text-sm">ENTRAX AI Knowledge Agent</h4>
+                        <p class="text-[9px] text-white/80">Free Knowledge & Multilingual Voice Search</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleSpeechOutput()" id="btnVoiceToggle" class="text-white text-xs p-1.5 bg-white/10 rounded-lg" title="Toggle Speech Output">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <button onclick="toggleBotWindow()" class="text-sm p-1.5"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <div id="chatBox" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs"></div>
+
+            <div class="p-3 border-t border-white/10 bg-[#0b0f1a] flex items-center gap-2">
+                <button onclick="startVoiceRecognition()" class="bg-white/10 hover:bg-white/20 text-white p-2.5 rounded-xl text-xs" title="Voice Input">
+                    <i class="fa-solid fa-microphone text-emerald-400"></i>
+                </button>
+                
+                <input type="text" id="chatInput" placeholder="Type..." class="flex-1 glass-input rounded-xl px-3 py-2 text-xs outline-none" onkeypress="if(event.key === 'Enter') handleUserMessage()">
+                
+                <button onclick="handleUserMessage()" class="bg-[#ef4d23] text-white px-3.5 py-2 rounded-xl text-xs font-bold">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= 5. UNIVERSAL SCRIPT LOGIC (GITHUB FAIL-SAFE) ================= -->
+    <script>
+        // Global State Variables
+        var generatedOTP = "";
+        var currentUser = { name: "", email: "" };
+        var activeCheckout = { amount: "0", purpose: "" };
+        var currentAuthMode = 'login';
+        var speechOutputEnabled = true;
+        var chatSessions = JSON.parse(localStorage.getItem('entrax_chat_sessions') || '[]');
+        var currentSessionId = Date.now();
+
+        // Clocks
+        function updateClocks() {
+            var now = new Date();
+            var elIST = document.getElementById('timeIST');
+            var elEST = document.getElementById('timeEST');
+            var elGMT = document.getElementById('timeGMT');
+            if(elIST) elIST.innerText = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            if(elEST) elEST.innerText = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            if(elGMT) elGMT.innerText = now.toLocaleTimeString('en-US', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        setInterval(updateClocks, 1000);
+
+        window.onload = function() {
+            updateClocks();
+            var savedSession = localStorage.getItem('entrax_session');
+            if (savedSession) {
+                try {
+                    var sessionData = JSON.parse(savedSession);
+                    if (new Date().getTime() - sessionData.timestamp < 259200000) {
+                        currentUser = sessionData.user;
+                        unlockWebsite();
+                    }
+                } catch(e){}
+            }
+            initChatBot();
+            initSignatureCanvas();
+        };
+
+        // Mobile Nav Hamburger
+        function toggleMobileMenu() {
+            var menu = document.getElementById('mobileMenu');
+            if(menu) {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+            }
+        }
+
+        function navigateToSection(sectionId) {
+            if(!sectionId) return;
+            var target = document.getElementById(sectionId);
+            if(target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                toggleMobileMenu();
+            }
+        }
+
+        // AUTH SYSTEM
+        function switchAuthMode(mode) {
+            currentAuthMode = mode;
+            document.getElementById('loginFormBlock').classList.add('hidden');
+            document.getElementById('registerFormBlock').classList.add('hidden');
+            document.getElementById('forgotFormBlock').classList.add('hidden');
+
+            var tabLogin = document.getElementById('tabLoginBtn');
+            var tabReg = document.getElementById('tabRegisterBtn');
+
+            if(mode === 'login') {
+                document.getElementById('loginFormBlock').classList.remove('hidden');
+                tabLogin.className = "flex-1 py-2 text-xs font-bold border-b-2 border-[#ef4d23] text-white";
+                tabReg.className = "flex-1 py-2 text-xs font-bold border-b-2 border-transparent text-neutral-400 hover:text-white";
+                document.getElementById('txtAuthTitle').innerText = "ENTRAX PORTAL";
+            } else if(mode === 'register') {
+                document.getElementById('registerFormBlock').classList.remove('hidden');
+                tabReg.className = "flex-1 py-2 text-xs font-bold border-b-2 border-[#ef4d23] text-white";
+                tabLogin.className = "flex-1 py-2 text-xs font-bold border-b-2 border-transparent text-neutral-400 hover:text-white";
+                document.getElementById('txtAuthTitle').innerText = "CREATE ACCOUNT";
+            } else if(mode === 'forgot') {
+                document.getElementById('forgotFormBlock').classList.remove('hidden');
+                document.getElementById('txtAuthTitle').innerText = "RESET PASSWORD";
+            }
+        }
+
+        function handleDirectLogin() {
+            var email = document.getElementById('loginEmail').value.trim();
+            var pass = document.getElementById('loginPassword').value.trim();
+
+            if(!email || !pass) { alert("Please fill Email and Password!"); return; }
+
+            var userDB = JSON.parse(localStorage.getItem('entrax_users_db') || '{}');
+            
+            if(userDB[email] && userDB[email].password === pass) {
+                currentUser = { name: userDB[email].name, email: email };
+                localStorage.setItem('entrax_session', JSON.stringify({ user: currentUser, timestamp: new Date().getTime() }));
+                unlockWebsite();
+            } else if (email === "entraxgroup@gmail.com") {
+                currentUser = { name: "Admin", email: email };
+                localStorage.setItem('entrax_session', JSON.stringify({ user: currentUser, timestamp: new Date().getTime() }));
+                unlockWebsite();
+            } else {
+                alert("Invalid Email or Password! Click 'Register / Sign Up' to create account.");
+            }
+        }
+
+        function sendRegisterOTP() {
+            var name = document.getElementById('regName').value.trim();
+            var email = document.getElementById('regEmail').value.trim();
+            var pass = document.getElementById('regPassword').value.trim();
+
+            if(!name || !email || !pass) { alert("Please complete registration fields!"); return; }
+
+            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            alert("Verification OTP Code for " + email + " is: " + generatedOTP);
+
+            document.getElementById('regStep1').classList.add('hidden');
+            document.getElementById('regStep2').classList.remove('hidden');
+        }
+
+        function verifyAndRegister() {
+            var code = document.getElementById('regOtp').value.trim();
+            if(code !== generatedOTP) { alert("Invalid OTP Code!"); return; }
+
+            var name = document.getElementById('regName').value.trim();
+            var email = document.getElementById('regEmail').value.trim();
+            var pass = document.getElementById('regPassword').value.trim();
+
+            var userDB = JSON.parse(localStorage.getItem('entrax_users_db') || '{}');
+            userDB[email] = { name: name, password: pass };
+            localStorage.setItem('entrax_users_db', JSON.stringify(userDB));
+
+            currentUser = { name: name, email: email };
+            localStorage.setItem('entrax_session', JSON.stringify({ user: currentUser, timestamp: new Date().getTime() }));
+            unlockWebsite();
+        }
+
+        function sendResetOTP() {
+            var email = document.getElementById('resetEmail').value.trim();
+            var userDB = JSON.parse(localStorage.getItem('entrax_users_db') || '{}');
+
+            if(!userDB[email] && email !== "entraxgroup@gmail.com") { alert("This email is not registered!"); return; }
+
+            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            alert("Reset OTP Code is: " + generatedOTP);
+
+            document.getElementById('forgotStep1').classList.add('hidden');
+            document.getElementById('forgotStep2').classList.remove('hidden');
+        }
+
+        function confirmResetPassword() {
+            var code = document.getElementById('resetOtp').value.trim();
+            var newPass = document.getElementById('newPassword').value.trim();
+            var email = document.getElementById('resetEmail').value.trim();
+
+            if(code !== generatedOTP) { alert("Invalid OTP Code!"); return; }
+            if(!newPass) { alert("Please enter new password!"); return; }
+
+            var userDB = JSON.parse(localStorage.getItem('entrax_users_db') || '{}');
+            userDB[email] = { name: email.split('@')[0], password: newPass };
+            localStorage.setItem('entrax_users_db', JSON.stringify(userDB));
+            alert("Password Updated Successfully! Please login now.");
+            switchAuthMode('login');
+        }
+
+        function unlockWebsite() {
+            document.getElementById('authOverlay').classList.add('hidden');
+            document.getElementById('mainWebsite').classList.remove('hidden');
+            initChatBot();
+        }
+
+        function logoutGateway() {
+            localStorage.removeItem('entrax_session');
+            location.reload();
+        }
+
+        function setFormService(serviceName) {
+            var el = document.getElementById('appCategory');
+            if(el) el.value = serviceName;
+        }
+
+        function openAgriInquiry(itemName) {
+            var el = document.getElementById('agriItem');
+            if(el) el.value = itemName;
+            document.getElementById('agri-export').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function submitAgriInquiry(e) {
+            e.preventDefault();
+            var status = document.getElementById('agriStatus');
+            status.className = "text-center text-xs p-3 rounded-xl font-semibold bg-emerald-500/20 text-emerald-300 block";
+            status.innerText = "✓ Trade RFQ inquiry submitted successfully to entraxgroup@gmail.com! We will respond shortly.";
+            document.getElementById('agriTradeForm').reset();
+        }
+
+        function submitApplication(e) {
+            e.preventDefault();
+            var status = document.getElementById('appStatus');
+            status.className = "text-center text-xs p-3 rounded-xl font-semibold bg-emerald-500/20 text-emerald-300 block";
+            status.innerText = "✓ Application proposal submitted successfully!";
+            document.getElementById('applicationForm').reset();
+        }
+
+        function openCheckoutModal(amount, purpose) {
+            activeCheckout = { amount: amount, purpose: purpose };
+            document.getElementById('checkoutAmount').innerText = '₹' + amount;
+            document.getElementById('checkoutPurpose').innerText = purpose;
+            
+            var upiString = "upi://pay?pa=9696565341@fam&pn=ENTRAX%20GROUP%20Aryan%20Yadav&am=" + amount + "&cu=INR&tn=" + encodeURIComponent(purpose);
+            var qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(upiString);
+            
+            document.getElementById('checkoutQR').src = qrUrl;
+            document.getElementById('paymentScanScreen').classList.remove('hidden');
+            document.getElementById('paymentReceiptScreen').classList.add('hidden');
+            
+            var modal = document.getElementById('checkoutModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeCheckoutModal() {
+            var modal = document.getElementById('checkoutModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function generateOfficialReceipt() {
+            document.getElementById('paymentScanScreen').classList.add('hidden');
+            document.getElementById('paymentReceiptScreen').classList.remove('hidden');
+        }
+
+        // CHATBOT LOGIC
+        function toggleBotWindow() {
+            var bot = document.getElementById('chatBotWindow');
+            bot.classList.toggle('hidden');
+            bot.classList.toggle('flex');
+        }
+
+        function toggleHistorySidebar() {
+            var side = document.getElementById('chatSidebar');
+            side.classList.toggle('hidden');
+            side.classList.toggle('flex');
+            renderHistoryList();
+        }
+
+        function toggleSpeechOutput() {
+            speechOutputEnabled = !speechOutputEnabled;
+            var btn = document.getElementById('btnVoiceToggle');
+            btn.innerHTML = speechOutputEnabled ? '<i class="fa-solid fa-volume-high"></i>' : '<i class="fa-solid fa-volume-xmark text-red-400"></i>';
+        }
+
+        function initChatBot() {
+            var box = document.getElementById('chatBox');
+            if(box) {
+                box.innerHTML = `<div class="bg-white/10 p-3 rounded-2xl max-w-[85%] text-neutral-200">
+                     नमस्ते ${currentUser.name || 'User'}! 🙏 <br>Welcome to ENTRAX Free AI Search Agent. Aap kisi bhi subject par sawal pooch sakte hain (e.g., Science, Forex, Agriculture, Coding)!
+                </div>`;
+            }
+        }
+
+        function startNewChatSession() {
+            currentSessionId = Date.now();
+            initChatBot();
+        }
+
+        function renderHistoryList() {
+            var list = document.getElementById('historyList');
+            if(!list) return;
+            list.innerHTML = '';
+            chatSessions.slice(-10).reverse().forEach(function(session) {
+                var item = document.createElement('div');
+                item.className = "p-2 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer truncate text-[11px]";
+                item.innerText = session.title || "Chat Session";
+                item.onclick = function() { loadChatSession(session.id); };
+                list.appendChild(item);
+            });
+        }
+
+        function loadChatSession(id) {
+            var found = chatSessions.find(function(s) { return s.id === id; });
+            if(found) {
+                var box = document.getElementById('chatBox');
+                box.innerHTML = '';
+                found.messages.forEach(function(msg) {
+                    box.innerHTML += `<div class="${msg.role === 'user' ? 'bg-[#ef4d23] text-white ml-auto text-right' : 'bg-white/10 text-neutral-200'} p-3 rounded-2xl max-w-[85%] mb-2">${msg.text}</div>`;
+                });
+            }
+        }
+
+        function clearAllChatHistory() {
+            chatSessions = [];
+            localStorage.removeItem('entrax_chat_sessions');
+            renderHistoryList();
+            initChatBot();
+        }
+
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert("Voice Recognition is not supported in your browser.");
+                return;
+            }
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            var recognition = new SpeechRecognition();
+            recognition.lang = 'hi-IN';
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                var transcript = event.results[0][0].transcript;
+                document.getElementById('chatInput').value = transcript;
+                handleUserMessage();
+            };
+        }
+
+        async function handleUserMessage() {
+            var input = document.getElementById('chatInput');
+            var text = input.value.trim();
+            if(!text) return;
+
+            var box = document.getElementById('chatBox');
+            box.innerHTML += `<div class="bg-[#ef4d23] text-white p-3 rounded-2xl max-w-[85%] ml-auto text-right mb-2">${text}</div>`;
+            input.value = '';
+            box.scrollTop = box.scrollHeight;
+
+            var botReply = "";
+            var lowerText = text.toLowerCase();
+
+            if(lowerText.indexOf("rice") !== -1 || lowerText.indexOf("basmati") !== -1 || lowerText.indexOf("export") !== -1 || lowerText.indexOf("agri") !== -1) {
+                botReply = "ENTRAX Group Agriculture Division deals in 1121 XXL Basmati Rice, Spices, Pulses, and Milling Wheat. You can submit RFQ inquiries directly via our Agri Import-Export section.";
+            } else if(lowerText.indexOf("prop") !== -1 || lowerText.indexOf("rules") !== -1 || lowerText.indexOf("loss") !== -1) {
+                botReply = "ENTRAX Prop Challenges offer $5,000 to $25,000 accounts with a 60/40 profit split upon passing the 8% target with a max 5% daily loss limit.";
+            } else {
+                try {
+                    var searchRes = await fetch("https://api.duckduckgo.com/?q=" + encodeURIComponent(text) + "&format=json&no_html=1&skip_disambig=1");
+                    var data = await searchRes.json();
+                    
+                    if(data.AbstractText) {
+                        botReply = data.AbstractText;
+                    } else if(data.RelatedTopics && data.RelatedTopics.length > 0 && data.RelatedTopics[0].Text) {
+                        botReply = data.RelatedTopics[0].Text;
+                    } else {
+                        botReply = "Aapne pucha: \"" + text + "\". Is baare mein ENTRAX AI search active hai. Aap hamari services, trading rules ya agriculture export ke baare me bhi pooch sakte hain!";
+                    }
+                } catch(e) {
+                    botReply = "Information regarding \"" + text + "\": ENTRAX AI active. Please specify if you need details on Services, Prop Trading, or Agri Trade.";
+                }
+            }
+
+            setTimeout(function() {
+                box.innerHTML += `<div class="bg-white/10 p-3 rounded-2xl max-w-[85%] text-neutral-200 mb-2">${botReply}</div>`;
+                box.scrollTop = box.scrollHeight;
+
+                saveChatToHistory(text, botReply);
+
+                if(speechOutputEnabled && 'speechSynthesis' in window) {
+                    var utterance = new SpeechSynthesisUtterance(botReply);
+                    utterance.lang = 'hi-IN';
+                    window.speechSynthesis.speak(utterance);
+                }
+            }, 400);
+        }
+
+        function saveChatToHistory(userMsg, botMsg) {
+            var session = chatSessions.find(function(s) { return s.id === currentSessionId; });
+            if(!session) {
+                session = { id: currentSessionId, title: userMsg.substring(0, 25), messages: [] };
+                chatSessions.push(session);
+            }
+            session.messages.push({ role: 'user', text: userMsg });
+            session.messages.push({ role: 'bot', text: botMsg });
+            localStorage.setItem('entrax_chat_sessions', JSON.stringify(chatSessions));
+        }
+
+        // SIGNATURE CANVAS
+        var canvas, ctx, isDrawing = false;
+        function initSignatureCanvas() {
+            canvas = document.getElementById('sigCanvas');
+            if(!canvas) return;
+            ctx = canvas.getContext('2d');
+            
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            ctx.strokeStyle = '#ef4d23';
+            ctx.lineWidth = 2.5;
+
+            function startDraw(e) {
+                isDrawing = true;
+                ctx.beginPath();
+                var rect = canvas.getBoundingClientRect();
+                var x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+                var y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+                ctx.moveTo(x, y);
+            }
+
+            function draw(e) {
+                if(!isDrawing) return;
+                var rect = canvas.getBoundingClientRect();
+                var x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+                var y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+
+            function stopDraw() { isDrawing = false; }
+
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDraw);
+
+            canvas.addEventListener('touchstart', startDraw, { passive: true });
+            canvas.addEventListener('touchmove', draw, { passive: true });
+            canvas.addEventListener('touchend', stopDraw);
+        }
+
+        function clearSignatureCanvas() {
+            if(ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    </script>
+</body>
+</html>
