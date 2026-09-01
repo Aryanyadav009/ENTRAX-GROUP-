@@ -1,334 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ENTRAX GROUP | Global B2B Sourcing, Supply Chain & Export Partner</title>
-  <meta name="description" content="ENTRAX GROUP connects global buyers and suppliers across agricultural products, food commodities, industrial goods, and international trade lines." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#f6f8fb;
-      --card:#ffffff;
-      --card-sub:#f8fafc;
-      --text:#0f172a;
-      --muted:#5b6b82;
-      --line:#e2e8f0;
-      --primary:#0a2540;
-      --accent:#0070f3;
-      --accent-2:#00c48c;
-      --navy-900:#071322;
-      --navy-800:#0c1d33;
-      --blue-50:#f2f7ff;
-      --shadow-sm:0 6px 18px rgba(15,23,42,0.04);
-      --shadow-md:0 18px 45px rgba(15,23,42,0.07);
-      --shadow-lg:0 28px 70px rgba(10,37,64,0.12);
-      --radius:18px;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
-    h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--primary);letter-spacing:-0.03em;line-height:1.15}
-    a{text-decoration:none;color:inherit}
-    .container{max-width:1280px;margin:0 auto;padding:0 24px}
-
-    header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(226,232,240,0.8)}
-    .nav{display:flex;align-items:center;justify-content:space-between;height:84px}
-    .brand{display:flex;align-items:center;gap:14px;font-weight:800;letter-spacing:0.04em}
-    .logo-mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0a2540 0%,#0070f3 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;box-shadow:0 10px 24px rgba(0,112,243,0.3)}
-    .brand-text{display:flex;flex-direction:column}
-    .brand-title{font-size:19px;font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1;color:var(--primary)}
-    .brand-sub{font-size:10px;text-transform:uppercase;letter-spacing:0.22em;color:var(--accent);font-weight:700;margin-top:4px}
-    .nav-links{display:flex;align-items:center;gap:24px}
-    .nav-links a{font-size:14px;font-weight:600;color:var(--muted);transition:.2s}
-    .nav-links a:hover{color:var(--accent)}
-    .nav-cta{display:flex;align-items:center;gap:10px}
-
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:13.5px;font-weight:700;transition:.25s ease;cursor:pointer;border:1px solid transparent;white-space:nowrap}
-    .btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-sm)}
-    .btn-primary:hover{background:#0070f3;color:#fff;transform:translateY(-1px);box-shadow:var(--shadow-md)}
-    .btn-white{background:#fff;color:var(--primary);border-color:var(--line);box-shadow:var(--shadow-sm)}
-    .btn-white:hover{background:#f8fafc;border-color:#cbd5e1;transform:translateY(-1px)}
-    .btn-accent{background:#0070f3;color:#fff;box-shadow:0 10px 24px rgba(0,112,243,0.25)}
-    .btn-accent:hover{background:#005cd4;transform:translateY(-1px)}
-
-    .hero{position:relative;padding:140px 0 70px;overflow:hidden}
-    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;text-transform:uppercase;letter-spacing:0.18em;font-weight:800;color:var(--accent);background:var(--blue-50);border:1px solid rgba(0,112,243,0.14);padding:6px 14px;border-radius:999px;margin-bottom:18px}
-    .hero h1{font-size:clamp(38px,4.8vw,62px);margin-bottom:20px}
-    .hero p{font-size:17px;color:var(--muted);max-width:580px;margin-bottom:32px}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px}
-    .hero-points{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-top:24px;border-top:1px solid var(--line)}
-    .hero-point-title{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:3px}
-    .hero-point-sub{font-size:12px;color:var(--muted);line-height:1.4}
-    .hero-stage{position:relative;height:580px;border-radius:28px;background:radial-gradient(circle at 50% 50%,#0f2e54 0%,#08172c 60%,#040a14 100%);box-shadow:var(--shadow-lg);overflow:hidden;border:1px solid rgba(255,255,255,0.12)}
-    #globe{width:100%;height:100%}
-    .stage-badge{position:absolute;left:20px;bottom:20px;background:rgba(8,23,44,0.72);border:1px solid rgba(255,255,255,0.16);backdrop-filter:blur(14px);border-radius:16px;padding:14px 18px;color:#fff;max-width:300px;font-size:12px}
-    .stage-badge b{display:block;font-size:13px;color:#79d9ff;margin-bottom:2px}
-
-    section{padding:90px 0}
-    .section-head{max-width:720px;margin-bottom:48px}
-    .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
-    .section-head h2{font-size:clamp(28px,3.2vw,44px);margin-top:10px;margin-bottom:14px}
-    .section-head p{font-size:16px;color:var(--muted)}
-
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
-
-    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow-sm);transition:.3s}
-    .card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:#cbd5e1}
-    .card-icon{width:46px;height:46px;border-radius:12px;background:var(--blue-50);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px}
-    .card h3{font-size:20px;margin-bottom:10px}
-    .card p{font-size:14px;color:var(--muted);line-height:1.6}
-
-    .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
-    .product-card{position:relative;height:340px;border-radius:20px;overflow:hidden;background-size:cover;background-position:center;padding:26px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;border:1px solid rgba(255,255,255,0.22);box-shadow:var(--shadow-sm);transition:.35s ease}
-    .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-    .product-card::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,10,20,0.06) 0%,rgba(4,10,20,0.85) 75%,rgba(4,10,20,0.95) 100%)}
-    .product-card > *{position:relative;z-index:2}
-    .product-card .num{position:absolute;top:20px;right:20px;font-size:12px;font-weight:800;letter-spacing:0.1em;opacity:0.6;font-family:'Space Grotesk',sans-serif}
-    .product-card h3{color:#fff;font-size:22px;margin-bottom:6px}
-    .product-card p{font-size:13px;color:#d8e2ef;line-height:1.45;margin-bottom:16px}
-    .product-card button{align-self:flex-start;background:rgba(255,255,255,0.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:12px;font-weight:700;padding:8px 16px;border-radius:999px;cursor:pointer;transition:.2s}
-    .product-card button:hover{background:#fff;color:var(--primary)}
-
-    .role-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-    .role-box{border-radius:24px;padding:44px;position:relative;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow-sm)}
-    .role-box.buyer{background:linear-gradient(180deg,#ffffff 0%,#f5f9ff 100%)}
-    .role-box.seller{background:linear-gradient(180deg,#ffffff 0%,#f3fbf7 100%)}
-    .role-tag{font-size:11px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:16px}
-    .buyer .role-tag{background:rgba(0,112,243,0.1);color:#0070f3}
-    .seller .role-tag{background:rgba(0,196,140,0.12);color:#00a373}
-    .role-box h3{font-size:28px;margin-bottom:12px}
-    .role-box p{font-size:14.5px;color:var(--muted);margin-bottom:22px}
-    .role-list{list-style:none;margin-bottom:30px;display:flex;flex-direction:column;gap:10px}
-    .role-list li{font-size:13.5px;color:#334155;display:flex;align-items:center;gap:10px}
-    .role-list li::before{content:"✓";font-weight:800;color:var(--accent)}
-    .seller .role-list li::before{color:var(--accent-2)}
-
-    .cta-banner{background:linear-gradient(135deg,#071322 0%,#0c2544 100%);color:#fff;border-radius:30px;padding:60px 48px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.1);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center}
-    .cta-banner h2{color:#fff;font-size:36px;margin-bottom:12px}
-    .cta-banner p{color:#9cb3cd;font-size:15px;margin-bottom:26px}
-    .cta-actions{display:flex;flex-wrap:wrap;gap:12px}
-    #mini-globe{width:100%;height:300px}
-
-    footer{background:#071322;color:#94a3b8;padding:70px 0 30px;border-top:1px solid rgba(255,255,255,0.08);font-size:13px}
-    .foot-grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:40px;margin-bottom:50px}
-    .foot-brand{color:#fff;font-size:18px;font-family:'Space Grotesk',sans-serif;margin-bottom:10px;font-weight:700}
-    .foot-desc{max-width:320px;line-height:1.6;color:#94a3b8}
-    .foot-col h4{color:#fff;font-size:14px;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.1em}
-    .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
-    .foot-col a{color:#94a3b8;transition:.2s}
-    .foot-col a:hover{color:#fff}
-    .foot-btm{border-top:1px solid rgba(255,255,255,0.08);padding-top:26px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#64748b}
-
-    /* Modal System */
-    .modal-wrap{position:fixed;inset:0;background:rgba(7,19,34,0.68);backdrop-filter:blur(10px);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .25s ease}
-    .modal-wrap.show{display:flex;opacity:1}
-    .modal-backdrop{position:absolute;inset:0}
-    .modal-box{position:relative;background:#fff;border-radius:24px;width:100%;max-width:720px;max-height:90vh;overflow-y:auto;padding:40px;box-shadow:0 30px 80px rgba(7,19,34,0.35);z-index:2}
-    .modal-box::-webkit-scrollbar{width:6px}
-    .modal-box::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
-    .close{position:absolute;top:20px;right:20px;width:34px;height:34px;border-radius:50%;background:#f1f5f9;border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:.2s}
-    .close:hover{background:#e2e8f0}
-
-    /* Form Design */
-    .form-title{font-size:26px;margin-bottom:6px}
-    .form-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
-    .form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .field{display:flex;flex-direction:column;gap:6px}
-    .field.full{grid-column:span 2}
-    .field label{font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.04em}
-    .field input,.field select,.field textarea{border:1px solid var(--line);background:#f8fafc;padding:12px 14px;border-radius:10px;font-size:13.5px;font-family:inherit;color:var(--text);outline:none;transition:border-color .2s}
-    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background:#fff}
-    .field textarea{min-height:90px;resize:vertical}
-    .seller-note{grid-column:span 2;font-size:12px;color:#854d0e;background:#fef9c3;border:1px solid #fef08a;padding:12px 14px;border-radius:10px;line-height:1.5}
-    .file-list{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .file-list label{font-size:11.5px;color:var(--muted);display:flex;flex-direction:column;gap:4px;border:1px dashed #cbd5e1;padding:10px;border-radius:8px;cursor:pointer;background:#f8fafc}
-    .file-list input[type="file"]{font-size:10.5px;border:none;padding:0;background:transparent}
-    .tz{grid-column:span 2;font-size:12px;color:var(--muted);background:var(--blue-50);padding:8px 12px;border-radius:8px}
-    .form-submit{grid-column:span 2;margin-top:8px}
-
-    @media(max-width:980px){
-      .hero-grid,.cta-banner,.role-grid,.grid-3,.grid-4,.grid-2,.foot-grid{grid-template-columns:1fr}
-      .hero{padding:120px 0 50px}
-      .nav-links{display:none}
-      .form{grid-template-columns:1fr}
-      .field.full,.file-list,.seller-note,.tz,.form-submit{grid-column:span 1}
-      .file-list{grid-template-columns:1fr}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ENTRAX GROUP — Global sourcing, agricultural commodities, oils, spices, sugar and international import-export trade.">
+<title>ENTRAX GROUP | Global Import & Export</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#03070b;color:#f7fafc;font-family:Barlow,Arial,sans-serif;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+::-webkit-scrollbar{width:7px}
+::-webkit-scrollbar-track{background:#03070b}
+::-webkit-scrollbar-thumb{background:#19c37d;border-radius:20px}
+:root{
+  --green:#16c784;--green2:#0b8f62;--gold:#e5bd63;--blue:#35a8ff;
+  --glass:rgba(7,15,23,.72);--line:rgba(255,255,255,.12)
+}
+.container{width:min(1180px,92%);margin:auto}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.025));border:1px solid var(--line);box-shadow:0 24px 70px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:100;width:min(1120px,94%);padding:12px 18px;border-radius:22px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:1.8px}
+.logo-mark{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(145deg,#dfffe9,#11b875);color:#03110b;box-shadow:0 0 28px rgba(22,199,132,.35);transform:rotate(-8deg)}
+.logo-mark i{transform:rotate(8deg)}
+.nav-links{display:flex;gap:24px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#b9c5cc}
+.nav-links a:hover{color:#fff}
+.nav-btn{padding:10px 15px;border-radius:999px;background:var(--green);color:#00150d;font-size:12px;font-weight:800}
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;padding:150px 0 80px;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:
+ radial-gradient(circle at 50% 35%,rgba(23,173,255,.18),transparent 28%),
+ radial-gradient(circle at 15% 75%,rgba(22,199,132,.14),transparent 25%),
+ linear-gradient(180deg,rgba(3,7,11,.05),#03070b 90%)}
+.ocean{position:absolute;left:-10%;right:-10%;bottom:-70px;height:48%;background:
+ repeating-linear-gradient(170deg,rgba(39,156,214,.13) 0 2px,transparent 2px 28px),
+ linear-gradient(180deg,rgba(5,47,72,.55),rgba(2,20,31,.95));transform:perspective(700px) rotateX(58deg);transform-origin:bottom;opacity:.9}
+.wave{position:absolute;bottom:13%;left:-10%;width:120%;height:90px;border-radius:50%;border-top:2px solid rgba(74,195,255,.35);animation:wave 6s ease-in-out infinite}
+.wave.w2{bottom:19%;animation-delay:-2s;opacity:.45}
+@keyframes wave{50%{transform:translateX(4%) scaleY(.75)}}
+.hero-content{position:relative;z-index:5;max-width:700px}
+.eyebrow{display:inline-flex;gap:9px;align-items:center;padding:8px 13px;border-radius:999px;background:rgba(22,199,132,.08);border:1px solid rgba(22,199,132,.25);font-size:11px;text-transform:uppercase;letter-spacing:1.7px;color:#bdebd7}
+.eyebrow span{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 15px var(--green)}
+h1{font-family:Inter,sans-serif;font-size:clamp(44px,7vw,88px);line-height:.95;margin:25px 0 20px;letter-spacing:-4px}
+.hero-title{color:#fff;text-shadow:0 0 35px rgba(255,255,255,.16)}
+.hero-title em{font-style:normal;background:linear-gradient(90deg,#fff,#d5fbe9,#66d9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy{font-size:17px;line-height:1.7;color:#aebbc3;max-width:650px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{border:0;cursor:pointer;padding:14px 20px;border-radius:14px;font-weight:800;font-size:13px;display:inline-flex;align-items:center;gap:9px}
+.btn-green{background:linear-gradient(135deg,#20d993,#0ba86e);color:#00150d;box-shadow:0 12px 35px rgba(22,199,132,.22)}
+.btn-dark{background:rgba(255,255,255,.07);color:#fff;border:1px solid var(--line)}
+.transport-stage{position:absolute;right:-3%;top:20%;width:56%;height:55%;z-index:3;pointer-events:none;perspective:900px}
+.ship{position:absolute;right:9%;bottom:11%;width:360px;height:110px;transform:rotateX(12deg) rotateZ(-3deg);animation:shipFloat 4.5s ease-in-out infinite}
+.ship-hull{position:absolute;bottom:0;left:25px;width:310px;height:65px;background:linear-gradient(160deg,#dbe5ea,#4e5c66 55%,#18232a);clip-path:polygon(0 0,100% 0,83% 100%,13% 100%);border-radius:8px;box-shadow:0 20px 35px rgba(0,0,0,.5)}
+.ship-deck{position:absolute;left:75px;bottom:54px;width:190px;height:36px;background:linear-gradient(180deg,#f1f5f7,#87949b);clip-path:polygon(0 100%,8% 0,82% 0,100% 100%)}
+.ship-stack{position:absolute;left:120px;bottom:77px;width:50px;height:42px;background:linear-gradient(90deg,#ecf0f2,#697780);border-radius:5px 5px 0 0}
+.ship-stack:after{content:"";position:absolute;right:10px;top:-13px;width:25px;height:16px;background:#1b252b;border-radius:50% 50% 0 0}
+.ship-crane{position:absolute;left:200px;bottom:73px;width:4px;height:70px;background:#d5e1e5;transform:rotate(12deg);transform-origin:bottom}
+.ship-crane:after{content:"";position:absolute;top:0;left:-2px;width:72px;height:4px;background:#d5e1e5;transform:rotate(-10deg);transform-origin:left}
+.ship-label{position:absolute;bottom:22px;left:132px;font:800 10px Inter;color:#0c171d;letter-spacing:1px}
+.airplane{position:absolute;right:5%;top:10%;font-size:120px;color:#eaf4f8;filter:drop-shadow(0 20px 25px rgba(0,0,0,.55));transform:rotate(-11deg);animation:plane 6s ease-in-out infinite}
+@keyframes shipFloat{50%{transform:translateY(-9px) rotateX(12deg) rotateZ(-3deg)}}
+@keyframes plane{50%{transform:translate(25px,-14px) rotate(-8deg)}}
+.glow-orb{position:absolute;width:280px;height:280px;border-radius:50%;background:rgba(32,145,255,.12);filter:blur(35px);right:25%;top:12%}
+.section{padding:95px 0}
+.section-head{max-width:760px;margin:0 auto 45px;text-align:center}
+.kicker{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);font-weight:800}
+.section h2{font:800 clamp(32px,5vw,55px)/1 Inter;margin:10px 0 15px;letter-spacing:-2px}
+.muted{color:#9eabb4;line-height:1.65}
+.trade-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.trade-card{min-height:185px;border-radius:22px;overflow:hidden;position:relative;background:#0b1219;border:1px solid var(--line);padding:22px}
+.trade-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.34;transition:.5s}
+.trade-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 25%,#071017 100%)}
+.trade-card:hover img{transform:scale(1.08);opacity:.48}
+.trade-card-content{position:relative;z-index:2;margin-top:90px}
+.trade-card h3{margin:0 0 4px;font-size:20px}
+.trade-card p{margin:0;color:#aeb8bf;font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.stat{padding:22px;border-radius:18px;text-align:center}
+.stat strong{display:block;font:800 28px Inter}
+.stat span{font-size:11px;color:#94a2aa;text-transform:uppercase;letter-spacing:1px}
+.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.step{padding:25px;border-radius:22px;position:relative}
+.step-num{width:34px;height:34px;border-radius:10px;background:rgba(22,199,132,.13);border:1px solid rgba(22,199,132,.3);display:grid;place-items:center;color:var(--green);font-weight:800;margin-bottom:22px}
+.step h3{margin:0 0 8px}
+.step p{font-size:13px;color:#9eabb4;line-height:1.6;margin:0}
+.action-panel{padding:30px;border-radius:28px}
+.selector{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:25px 0}
+.select-card{padding:22px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.035);cursor:pointer;text-align:left;transition:.25s}
+.select-card:hover,.select-card.active{border-color:rgba(22,199,132,.6);background:rgba(22,199,132,.08);transform:translateY(-2px)}
+.select-card i{font-size:24px;color:var(--green);margin-bottom:13px}
+.select-card h3{margin:0 0 5px}
+.select-card p{margin:0;color:#94a2aa;font-size:12px;line-height:1.5}
+.form-wrap{display:none}
+.form-wrap.active{display:block}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#b8c3c9;font-weight:700}
+.field input,.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);color:#fff;border-radius:13px;padding:12px 13px;outline:0}
+.field select option{background:#0b1219;color:#fff}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(22,199,132,.08)}
+.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:3px}
+.check{display:flex;gap:8px;align-items:flex-start;color:#aeb9bf;font-size:12px}
+.check input{width:auto;margin-top:3px;accent-color:var(--green)}
+.form-note{font-size:11px;color:#7f8d95;line-height:1.55}
+.status{display:none;margin-top:14px;padding:12px;border-radius:12px;font-size:12px}
+.status.show{display:block}
+.status.ok{background:rgba(22,199,132,.1);border:1px solid rgba(22,199,132,.25);color:#a9f0d0}
+.status.bad{background:rgba(255,75,75,.1);border:1px solid rgba(255,75,75,.25);color:#ffb0b0}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.info-card{padding:28px;border-radius:24px}
+.info-card h3{margin-top:0}
+.list{display:grid;gap:10px}
+.list div{display:flex;gap:10px;color:#aeb9bf;font-size:13px;line-height:1.5}
+.list i{color:var(--green);margin-top:3px}
+.terms{font-size:12px;color:#8f9ca5;line-height:1.7}
+.footer{border-top:1px solid var(--line);padding:40px 0 25px;background:#020509}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+.contact-line{display:flex;gap:10px;align-items:center;color:#b6c1c7;font-size:13px;margin:9px 0}
+.contact-line i{color:var(--green);width:18px}
+.whatsapp{display:inline-flex;align-items:center;gap:8px;margin-top:10px;background:#16c784;color:#00150d;padding:10px 14px;border-radius:12px;font-weight:800;font-size:12px}
+.mobile-toggle{display:none;background:transparent;border:0;color:#fff;font-size:21px}
+.reveal{opacity:0;transform:translateY(20px);transition:.7s ease}
+.reveal.show{opacity:1;transform:none}
+@media(max-width:900px){
+ .nav-links,.nav-btn{display:none}.mobile-toggle{display:block}
+ .transport-stage{opacity:.5;width:90%;right:-25%;top:17%}.airplane{font-size:85px}.ship{transform:scale(.72) rotateX(12deg) rotateZ(-3deg);right:-5%}
+ .trade-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.workflow{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+ .hero{padding-top:135px}.hero-content{max-width:100%}h1{letter-spacing:-2.5px}.hero-copy{font-size:15px}
+ .transport-stage{top:42%;height:38%;opacity:.22}.ocean{height:38%}
+ .trade-grid,.workflow,.info-grid,.footer-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}
+ .selector,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.checks{grid-template-columns:1fr}
+ .section{padding:72px 0}.nav{top:10px}
+}
+</style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <header>
-    <div class="container nav">
-      <a href="#" class="brand">
-        <div class="logo-mark">E</div>
-        <div class="brand-text">
-          <span class="brand-title">ENTRAX GROUP</span>
-          <span class="brand-sub">GLOBAL TRADE NETWORK</span>
-        </div>
-      </a>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#products">Products</a>
-        <a href="#solutions">Solutions</a>
-        <a href="#process">Trade Desk</a>
-      </div>
-      <div class="nav-cta">
-        <button class="btn btn-white" data-open="seller">Become a Seller</button>
-        <button class="btn btn-white" data-open="buyer">Buyer Enquiry</button>
-        <button class="btn btn-accent" data-open="meeting">Schedule Meeting</button>
-      </div>
-    </div>
-  </header>
+<header class="nav glass">
+  <a href="#home" class="logo"><span class="logo-mark"><i class="fa-solid fa-globe"></i></span><span>ENTRAX <span style="color:var(--green)">GROUP</span></span></a>
+  <nav class="nav-links">
+    <a href="#trade">Global Trade</a>
+    <a href="#process">How It Works</a>
+    <a href="#request">Request</a>
+    <a href="#documents">Documents</a>
+  </nav>
+  <a href="#request" class="nav-btn">Start a Request</a>
+  <button class="mobile-toggle" onclick="document.getElementById('mobileNav').classList.toggle('show')"><i class="fa-solid fa-bars"></i></button>
+</header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <div class="eyebrow">Enterprise Global Trade Desk</div>
-        <h1>Global Sourcing, Wholesale Commodities & <span>Direct Export Supply</span></h1>
-        <p>ENTRAX GROUP bridges vetted international buyers and certified producers worldwide. We structure, execute, and deliver end-to-end B2B trade solutions.</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" data-open="buyer">Submit Buyer Requirement →</button>
-          <button class="btn btn-white" data-open="seller">Register as Verified Seller</button>
-          <button class="btn btn-accent" data-open="meeting">Book Live Consultation</button>
-        </div>
-        <div class="hero-points">
-          <div>
-            <div class="hero-point-title">Direct Origination</div>
-            <div class="hero-point-sub">Source directly from verified farm gates and mills.</div>
-          </div>
-          <div>
-            <div class="hero-point-title">Incoterms Ready</div>
-            <div class="hero-point-sub">Flexible FOB, CIF, CFR structuring.</div>
-          </div>
-          <div>
-            <div class="hero-point-title">WhatsApp Trade Desk</div>
-            <div class="hero-point-sub">Direct, rapid transaction communication.</div>
-          </div>
-        </div>
-      </div>
-      <div class="hero-stage">
-        <div id="globe"></div>
-        <div class="stage-badge">
-          <b>Active Trade Routes</b>
-          Connecting Middle East, Asia, Europe, Africa & the Americas with multi-origin trade corridors.
-        </div>
-      </div>
-    </div>
-  </section>
+<div id="mobileNav" class="glass" style="display:none;position:fixed;top:66px;left:3%;right:3%;z-index:99;padding:18px;border-radius:18px">
+  <a href="#trade" style="display:block;padding:9px" onclick="this.parentElement.style.display='none'">Global Trade</a>
+  <a href="#process" style="display:block;padding:9px" onclick="this.parentElement.style.display='none'">How It Works</a>
+  <a href="#request" style="display:block;padding:9px" onclick="this.parentElement.style.display='none'">Request</a>
+  <a href="#documents" style="display:block;padding:9px" onclick="this.parentElement.style.display='none'">Documents</a>
+</div>
+<style>#mobileNav.show{display:block!important}</style>
 
-  <!-- About Section -->
-  <section id="about" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-    <div class="container">
-      <div class="section-head center">
-        <div class="eyebrow">Trade Desk Reliability</div>
-        <h2>Structured Trade Built for Performance</h2>
-        <p>We eliminate supply friction by matching verified global buyers directly with audited production capacities.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card">
-          <div class="card-icon">01</div>
-          <h3>Verified Counterparties</h3>
-          <p>Strict documentation, provenance tracking, and direct supplier verification to safeguard wholesale transactions.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">02</div>
-          <h3>Customized Specifications</h3>
-          <p>Product grades, customized packaging, moisture limits, and required SGS/Intertek quality certificates.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">03</div>
-          <h3>Dedicated Execution</h3>
-          <p>Proactive scheduling, contract documentation, and live trade support right on WhatsApp and scheduled meetings.</p>
-        </div>
-      </div>
+<main id="home">
+<section class="hero">
+  <div class="ocean"></div><div class="wave"></div><div class="wave w2"></div><div class="glow-orb"></div>
+  <div class="transport-stage">
+    <i class="fa-solid fa-plane airplane"></i>
+    <div class="ship">
+      <div class="ship-hull"></div><div class="ship-deck"></div><div class="ship-stack"></div><div class="ship-crane"></div>
+      <div class="ship-label">ENTRAX CARGO</div>
     </div>
-  </section>
-
-  <!-- Products Section -->
-  <section id="products">
-    <div class="container">
-      <div class="section-head">
-        <div class="eyebrow">Commodity Portfolio</div>
-        <h2>Primary Sourcing & Product Lines</h2>
-        <p>Explore our core agricultural and industrial export products structured for international volume delivery.</p>
-      </div>
-      <div class="prod-grid" id="productCards"></div>
+  </div>
+  <div class="container hero-content">
+    <div class="eyebrow"><span></span> Global Sourcing • Import • Export • Trade</div>
+    <h1 class="hero-title">ENTRAX <em>GROUP</em><br>Moves Trade Forward.</h1>
+    <p class="hero-copy">A global import-export and sourcing platform for agricultural commodities, oils, spices, sugar, grains and other tradeable products. Buyers can source with clarity, sellers can present verified supply, and every requirement starts with a simple request.</p>
+    <div class="cta-row">
+      <a href="#request" class="btn btn-green"><i class="fa-solid fa-arrow-right"></i> Submit a Trade Request</a>
+      <a href="#trade" class="btn btn-dark"><i class="fa-solid fa-ship"></i> Explore Trade Categories</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Buyer & Seller Pathways -->
-  <section id="solutions" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-    <div class="container">
-      <div class="section-head center">
-        <div class="eyebrow">Engage Directly</div>
-        <h2>Choose Your Trade Pathway</h2>
-        <p>Select your operational role to initiate direct trade desk communication.</p>
-      </div>
-      <div class="role-grid">
-        <div class="role-box buyer">
-          <span class="role-tag">For Importers & Wholesalers</span>
-          <h3>Looking to Buy?</h3>
-          <p>Submit your product specification, destination port, target volume, and preferred delivery schedule.</p>
-          <ul class="role-list">
-            <li>Customized Incoterms & target price review</li>
-            <li>Direct origin matching & specs alignment</li>
-            <li>Fast WhatsApp trade desk escalation</li>
-          </ul>
-          <button class="btn btn-primary" data-open="buyer">Submit Buyer Request →</button>
-        </div>
-        <div class="role-box seller">
-          <span class="role-tag">For Producers & Exporters</span>
-          <h3>Looking to Sell?</h3>
-          <p>Register your product capacity, loading port, pricing terms, and certificates to access active global buyer demands.</p>
-          <ul class="role-list">
-            <li>Qualified international wholesale buyer base</li>
-            <li>Transparent contract structuring</li>
-            <li>Quality assurance and verification</li>
-          </ul>
-          <button class="btn btn-accent" data-open="seller">Register as Seller →</button>
-        </div>
-      </div>
+<section id="trade" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="kicker">// Global sourcing network</div>
+      <h2>One platform. Multiple commodities. Global reach.</h2>
+      <p class="muted">ENTRAX GROUP works across agricultural and commodity trade, connecting suitable sourcing opportunities with international buyers and sellers. Product availability, origin, specifications, quantity and commercial terms are confirmed case-by-case.</p>
     </div>
-  </section>
 
-  <!-- Process & Global Banner -->
-  <section id="process">
-    <div class="container">
-      <div class="cta-banner">
-        <div>
-          <div class="eyebrow" style="background:rgba(255,255,255,0.1);color:#79d9ff;border-color:rgba(255,255,255,0.2)">Direct Collaboration</div>
-          <h2>Schedule a Dedicated Trade Consultation</h2>
-          <p>Book a video or voice session with our trade specialists. We review specifications, logistics routes, and contract terms directly.</p>
-          <div class="cta-actions">
-            <button class="btn btn-accent" data-open="meeting">Schedule Live Meeting</button>
-            <button class="btn btn-white" data-open="buyer">Submit Requirements</button>
-          </div>
-        </div>
-        <div>
-          <div id="mini-globe"></div>
-        </div>
-      </div>
+    <div class="trade-grid">
+      <article class="trade-card reveal"><img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=900&q=80" alt="Rice and grains"><div class="trade-card-content"><h3>Rice & Grains</h3><p>Basmati, non-basmati, wheat, maize and other grains.</p></div></article>
+      <article class="trade-card reveal"><img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=900&q=80" alt="Indian spices"><div class="trade-card-content"><h3>Spices</h3><p>Whole and processed spices, subject to specification.</p></div></article>
+      <article class="trade-card reveal"><img src="https://images.unsplash.com/photo-1603048719539-0c1f1a1f3d1b?auto=format&fit=crop&w=900&q=80" alt="Sugar"><div class="trade-card-content"><h3>Sugar</h3><p>Commercial sugar sourcing based on origin, grade and quantity.</p></div></article>
+      <article class="trade-card reveal"><img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=900&q=80" alt="Cooking oil"><div class="trade-card-content"><h3>Oils</h3><p>Edible and selected commodity oils, depending on market availability.</p></div></article>
+      <article class="trade-card reveal"><img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=900&q=80" alt="Agricultural produce"><div class="trade-card-content"><h3>Agri Produce</h3><p>Pulses, seeds, fresh and processed agricultural products.</p></div></article>
+      <article class="trade-card reveal"><img src="https://images.unsplash.com/photo-1568515387631-8b650bbcdb90?auto=format&fit=crop&w=900&q=80" alt="Oil and commodities"><div class="trade-card-content"><h3>Commodities</h3><p>Additional trade commodities can be evaluated on request.</p></div></article>
+      <article class="trade-card reveal"><img src="https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=900&q=80" alt="Container ship"><div class="trade-card-content"><h3>Sea Shipment</h3><p>Containerized and bulk shipment options, subject to cargo.</p></div></article>
+      <article class="trade-card reveal"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80" alt="Air cargo"><div class="trade-card-content"><h3>Air Cargo</h3><p>For suitable products, urgency and shipment economics.</p></div></article>
     </div>
-  </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="foot-grid">
-        <div>
-          <div class="foot-brand">ENTRAX GROUP</div>
-          <p class="foot-desc">Enterprise trade desk facilitating verified agricultural and industrial commodity supply chains worldwide.</p>
-        </div>
-        <div class="foot-col">
-          <h4>Commodities</h4>
-          <ul>
-            <li><a href="
+    <div class="stats">
+      <div class="stat glass reveal"><strong>Global</strong><span>Sourcing Reach</span></div>
+      <div class="stat glass reveal"><strong>A1 Focus</strong><span>Quality Priority</span></div>
+      <div class="stat glass reveal"><strong>Flexible</strong><span>Trade Terms</span></div>
+      <div class="stat glass reveal"><strong>Case-by-Case</strong><span>Minimum Quantity</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="section" style="padding-top:35px">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="kicker">// Simple business workflow</div>
+      <h2>Choose what you need. We take it from there.</h2>
+      <p class="muted">No complicated dashboard. No unnecessary account wall. Select Buyer, Seller or Meeting and complete only the information relevant to your request.</p>
+    </div>
+    <div class="workflow">
+      <div class="step glass reveal"><div class="step-num">01</div><h3>Choose your role</h3><p>Buyer for sourcing, Seller for supply registration, or Meeting for a business discussion.</p></div>
+      <div class="step glass reveal"><div class="step-num">02</div><h3>Share requirements</h3><p>Tell us product, quantity, destination/origin, shipment preference, terms and specifications.</p></div>
+      <div class="step glass reveal"><div class="step-num">03</div><h3>Review & verification</h3><p>ENTRAX reviews the request and may ask for commercial, company and quality documents.</p></div>
+      <div class="step glass reveal"><div class="step-num">04</div><h3>Trade coordination</h3><p>Suitable opportunities move to quotation, negotiation, verification, shipment and transaction coordination.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="request" class="section">
+  <div class="container">
+    <div class="action-panel glass reveal">
+      <div class="section-head" style="margin-bottom:10px">
+        <div class="kicker">// Direct request center</div>
+        <h2>What would you like to do?</h2>
+        <p class="muted">Select one option first. The relevant form will appear below.</p>
+      </div>
+
+      <div class="selector">
+        <button class="select-card" type="button" data-target="buyerForm" onclick="showForm('buyerForm',this)">
+          <i class="fa-solid fa-cart-shopping"></i><h3>I'm a Buyer</h3><p>Need sourcing, quotation or international supply for your market.</p>
+        </button>
+        <button class="select-card" type="button" data-target="sellerForm" onclick="showForm('sellerForm',this)">
+          <i class="fa-solid fa-warehouse"></i><h3>I'm a Seller / Supplier</h3><p>Have a product or supply and want to register an export opportunity.</p>
+        </butt
